@@ -2,7 +2,7 @@ import { IoIosSend } from "react-icons/io";
 
 function TypeInput() {
   return (
-    <div className="px-8 bg-slate-800 h-[7vh] flex items-center">
+    <div className="px-8 bg-slate-800 h-[7vh] flex items-center rounded-[12px]">
       <div className="flex w-full space-x-2">
         <input
           type="text"

@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { SignupFormInputs } from "../types/commontypes";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider";
 
 function Login() {
   const {
@@ -10,6 +11,7 @@ function Login() {
     reset,
     formState: { errors },
   } = useForm<SignupFormInputs>();
+  const { setAuthUser } = useAuth();
 
   const onSubmit: SubmitHandler<SignupFormInputs> = (data) => {
     const userInfo = {
@@ -22,6 +24,7 @@ function Login() {
         console.log(response);
         alert("Login successfully!");
         localStorage.setItem("Messanger", JSON.stringify(response.data));
+        setAuthUser(response.data);
       })
       .catch((error) => {
         console.log(error);

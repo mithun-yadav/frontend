@@ -1,4 +1,5 @@
-function User() {
+import { UserType } from "../../assets/types/commonInterfaces";
+function User({ userInfo }: { userInfo: UserType }) {
   return (
     <div className="px-5">
       <div className="py-5 flex border-b-[1px] border-slate-700 justify-between">
@@ -9,7 +10,7 @@ function User() {
             </div>
           </div>
           <div>
-            <p className="text-base font-bold">Name</p>
+            <p className="text-base font-bold">{userInfo.name}</p>
             <p className="text-sm">Last Message</p>
           </div>
         </div>

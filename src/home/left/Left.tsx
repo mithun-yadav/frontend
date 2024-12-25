@@ -2,33 +2,38 @@ import axios from "axios";
 import SearchBox from "./SearchBox";
 import User from "./User";
 import { useQuery } from "@tanstack/react-query";
-
-interface ApiResponse {
-  data: [];
-  status: number;
-}
+import Cookies from "js-cookie";
+import { UserType } from "../../assets/types/commonInterfaces";
 
 function Left() {
-  const getAllUserDataFun = async (): Promise<ApiResponse> => {
-    const response = await axios.get<ApiResponse>(
-      "http://localhost:5002/user/getUserProfile"
-    );
+  const getAllUserDataFun = async (): Promise<UserType[]> => {
+    const token = Cookies.get("jwt");
+    const response = await axios.get<UserType[]>("api/user/getUserProfile", {
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   };
 
-  const { data, isLoading } = useQuery({
+  const { data: allUser, isLoading } = useQuery({
     queryKey: ["get-all-user"],
     queryFn: getAllUserDataFun,
   });
 
-  console.log(data, isLoading);
+  console.log(allUser, isLoading, "val");
+  // <span className="loading loading-infinity loading-lg"></span>
 
   return (
     <div className="flex-[1]">
       <SearchBox />
       <div className="noScrollBar h-[91vh] overflow-y-auto">
-        {Array.from({ length: 15 }).map((_, index) => {
+        {/* {Array.from({ length: 15 }).map((_, index) => {
           return <User key={index} />;
+        })} */}
+        {allUser?.map((item, index) => {
+          return <User key={index} userInfo={item} />;
         })}
       </div>
     </div>

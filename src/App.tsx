@@ -10,12 +10,6 @@ function App() {
   const { authUser } = useAuth();
   console.log(authUser, "authUser");
   return (
-    // <div className="flex bg-slate-900 text-white h-screen">
-    //   <Left />
-    //   <Right />
-    // </div>
-    // <Signup />
-    // <Login />
     <Routes>
       <Route
         path="/"
