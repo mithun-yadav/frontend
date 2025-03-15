@@ -1,11 +1,22 @@
+import { useAuth } from "../../context/AuthProvider";
+import useConversation from "../../stateManage/useConversation";
 import ChatUser from "./ChatUser";
 import Messages from "./Messages";
+import Nouser from "./Nouser";
 
 function Right() {
+  const { selectedConversation } = useConversation();
+  const { authUser } = useAuth();
   return (
     <div className="flex-[4] ">
-      <ChatUser />
-      <Messages />
+      {!selectedConversation ? (
+        <Nouser userName={authUser?.user?.name ?? ""} />
+      ) : (
+        <>
+          <ChatUser />
+          <Messages />
+        </>
+      )}
     </div>
   );
 }

@@ -13,7 +13,7 @@ function Signup() {
     formState: { errors },
   } = useForm<SignupFormInputs>();
   const password = watch("password", "");
-  const { authUser, setAuthUser } = useAuth();
+  const { setAuthUser } = useAuth();
   //   const confirmPassword = watch("confirmPassword", "");
   const validatePasswordMatch = (value: string | undefined) => {
     return value === password || "Password and confirm password don't match";
@@ -152,7 +152,7 @@ function Signup() {
             **{errors?.confirmPassword.message}**
           </span>
         )}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 cursor-pointer">
           <input
             type="submit"
             value="Sign up"

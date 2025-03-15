@@ -1,20 +1,33 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import Cookies from "js-cookie";
 
-type AuthUserType = object;
+type AuthUserType = {
+  message: string;
+  user: User;
+};
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 type AuthContextType = {
   authUser: AuthUserType | undefined;
   setAuthUser: React.Dispatch<React.SetStateAction<AuthUserType | undefined>>;
 };
 
 export const AuthContext = createContext<AuthContextType>({
-  authUser: {},
+  authUser: undefined,
   setAuthUser: () => {},
 });
 
 function AuthProvider({ children }: { children: ReactNode }) {
   const initialUserState =
-    Cookies.get("jwt") || localStorage.getItem("Messanger");
+    Cookies.get("jwt") || localStorage.getItem("authUser");
+
   const [authUser, setAuthUser] = useState<AuthUserType | undefined>(
     initialUserState ? JSON.parse(initialUserState) : undefined
   );

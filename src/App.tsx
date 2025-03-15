@@ -10,6 +10,7 @@ function App() {
   const { authUser } = useAuth();
   console.log(authUser, "authUser");
   return (
+    // <Loading />
     <Routes>
       <Route
         path="/"

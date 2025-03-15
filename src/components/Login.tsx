@@ -3,6 +3,7 @@ import axios from "axios";
 import { SignupFormInputs } from "../types/commontypes";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
+import Cookies from "js-cookie";
 
 function Login() {
   const {
@@ -21,17 +22,22 @@ function Login() {
     axios
       .post("/api/user/login", userInfo)
       .then((response) => {
-        console.log(response);
+        console.log("Login Response:", response.data);
+
+        const accessToken = response.data.accessToken; // Ensure correct key
+        Cookies.set("jwt", accessToken, { expires: 7 }); // Store JWT in cookies
+        localStorage.setItem("authUser", JSON.stringify(response.data)); // Store full user info
+        setAuthUser(response.data); // Update React state
+
         alert("Login successfully!");
-        localStorage.setItem("Messanger", JSON.stringify(response.data));
-        setAuthUser(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("Login Error:", error);
         if (error.response) {
-          alert("Error:" + error.response.data.error);
+          alert("Error: " + error.response.data.error);
         }
       });
+
     reset();
   };
   return (
@@ -93,7 +99,7 @@ function Login() {
             **{errors?.password.message}**
           </span>
         )}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 cursor-pointer">
           <input
             type="submit"
             value="Login"

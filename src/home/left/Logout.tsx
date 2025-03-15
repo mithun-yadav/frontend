@@ -28,7 +28,7 @@ function Logout() {
   };
 
   return (
-    <div onClick={handleLogout}>
+    <div className="cursor-pointer" onClick={handleLogout}>
       <AiOutlineLogout />
     </div>
   );
