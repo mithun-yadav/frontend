@@ -18,9 +18,7 @@ export interface userMessage {
 }
 
 export interface messagesInterface {
-  messages: {
-    messages: userMessage[]; // Reflects the nested structure
-  };
+  messages: userMessage[];
 }
 
 export interface Message {
@@ -36,6 +34,6 @@ export interface Message {
 export interface ConversationStore {
   selectedConversation: UserType | null;
   setSelectedConversation: (selectedConversation: UserType) => void;
-  messages: messagesInterface | null; // Reflects the nested structure
+  messages: messagesInterface[] | null; // Reflects the nested structure
   setMessages: (messages: messagesInterface) => void; // Matches the API response
 }

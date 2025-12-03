@@ -10,7 +10,15 @@ const useConversation = create<ConversationStore>((set) => ({
   setSelectedConversation: (selectedConversation: UserType) =>
     set({ selectedConversation }),
   messages: null,
-  setMessages: (messages: messagesInterface) => set({ messages }),
+  // setMessages: (messages: messagesInterface) => set({ messages }),
+  setMessages: (newMessages: messagesInterface) =>
+    set((state) => ({
+      ...state,
+      messages: [
+        ...(state.messages || []),
+        ...(Array.isArray(newMessages) ? newMessages : [newMessages]),
+      ],
+    })),
 }));
 
 export default useConversation;

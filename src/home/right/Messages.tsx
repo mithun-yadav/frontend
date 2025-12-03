@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { userMessage } from "../../assets/types/commonInterfaces";
+// import { userMessage } from "../../assets/types/commonInterfaces";
 import Loading from "../../components/Loading";
 import useGetMessage from "../../context/useGetMessage";
 import Message from "./Message";
@@ -7,9 +7,9 @@ import TypeInput from "./TypeInput";
 
 function Messages() {
   const { messages, isLoading } = useGetMessage();
-  const messagesArray = messages?.messages || [];
+  const messagesArray = messages || [];
   const lastMessageRef = useRef(null);
-  console.log(messagesArray, "jj");
+  console.log(messages, "jj");
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,9 +26,9 @@ function Messages() {
         {isLoading ? (
           <Loading />
         ) : Array.isArray(messagesArray) && messagesArray.length > 0 ? (
-          messagesArray.map((message: userMessage) => (
-            <div key={message._id} ref={lastMessageRef}>
-              <Message userMessage={message} />
+          messagesArray?.map((item, index) => (
+            <div key={index} ref={lastMessageRef}>
+              <Message userMessage={item} />
             </div>
           ))
         ) : (
